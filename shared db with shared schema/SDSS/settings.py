@@ -25,8 +25,15 @@ SECRET_KEY = 'django-insecure-vrg1(sm^+er4kq&2c*zbn%p*$wl87kgdc5ymvi*e-7_ay2)@6+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['polls.local','polls.local']
+ALLOWED_HOSTS = ['127.0.0.1','polls.local','polls.local']
 
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework.authentication.TokenAuthentication",
+        "rest_framework.authentication.SessionAuthentication",
+    ),
+    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
+}
 
 # Application definition
 
@@ -37,6 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    #3rd party
+    'rest_framework',
     'polls',
     'tenants',
 ]
