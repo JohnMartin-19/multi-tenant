@@ -8,3 +8,4 @@ class TenantMiddleware:
         set_tenant_schema_for_request(request)
         response = self.get_response(request)
         return response
+    

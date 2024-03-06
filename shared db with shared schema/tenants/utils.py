@@ -1,4 +1,4 @@
-from sqlite3 import Connection
+from django.db import connection
 from .models import Tenant
 
 def hostname_from_request(request):
@@ -13,13 +13,13 @@ def tenant_from_request(request):
 
 def tenant_schema_from_request(request):
     hostname = hostname_from_request(request)
-    tenants_map = get_tenants_map.get()
+    tenants_map = get_tenants_map()
     return tenants_map.get(hostname, None)
 
 
 def set_tenant_schema_for_request(request):
     schema = tenant_schema_from_request(request)
-    with Connection.cursor() as cursor:
+    with connection.cursor() as cursor:
         cursor.execute(f'SET search_path to {schema}')
 def get_tenants_map():
     return{
